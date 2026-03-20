@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Web App with Local Storage</title>
+    <title>Telegram Web App Demo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,18 +16,27 @@
             <input type="text" id="nameInput" placeholder="Введите ваше имя">
             
             <label for="phoneInput">Телефон:</label>
-            <input type="tel" id="phoneInput" pattern="[+\d\s()-]*" placeholder="Введите ваш телефон">
+            <input type="tel" id="phoneInput" placeholder="Введите ваш телефон">
             
             <button type="submit">Сохранить данные</button>
         </form>
 
-        <!-- Блок для отображения сохранённых данных -->
-        <div id="savedData">
-            <h2>Ваши данные:</h2>
-            <p><strong>Имя:</strong> <span id="displayName"></span></p>
-            <p><strong>Телефон:</strong> <span id="displayPhone"></span></p>
-            <button id="clearBtn">Очистить данные</button>
-        </div>
+        <!-- Таблица для отображения данных -->
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Телефон</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Данные будут добавляться динамически -->
+            </tbody>
+        </table>
+
+        <button id="clearAllBtn">Очистить все данные</button>
     </div>
 
     <!-- Подключение скриптов -->

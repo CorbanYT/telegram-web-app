@@ -10,25 +10,40 @@ request.onupgradeneeded = (event) => {
 
 request.onsuccess = (event) => {
     db = event.target.result;
-    readUserData(); // Читаем данные при загрузке страницы
+    displayData(); // Читаем и отображаем данные при загрузке страницы
 };
 
 request.onerror = (event) => {
     console.error("Ошибка при открытии базы данных:", event.target.errorCode);
 };
 
-// Чтение данных из базы
-function readUserData() {
+// Отображение данных в таблице
+function displayData() {
+    const tableBody = document.querySelector("#dataTable tbody");
+    tableBody.innerHTML = ""; // Очищаем таблицу
+
     const transaction = db.transaction(["userData"], "readonly");
     const store = transaction.objectStore("userData");
-    const request = store.get(1); // Берём первую запись
+    const request = store.getAll(); // Получаем ВСЕ записи
 
     request.onsuccess = (event) => {
         const data = event.target.result;
-        if (data) {
-            document.getElementById("displayName").textContent = data.name || "";
-            document.getElementById("displayPhone").textContent = data.phone || "";
-        }
+        data.forEach(item => {
+            const row = `
+                <tr>
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td>${item.phone}</td>
+                    <td><button class="delete-btn" data-id="${item.id}">Удалить</button></td>
+                </tr>
+            `;
+            tableBody.insertAdjacentHTML("beforeend", row);
+        });
+
+        // Добавляем слушатели для кнопок удаления
+        document.querySelectorAll(".delete-btn").forEach(btn => {
+            btn.addEventListener("click", deleteRecord);
+        });
     };
 }
 
@@ -44,13 +59,16 @@ document.getElementById("dataForm").addEventListener("submit", (event) => {
         return;
     }
 
+    // Генерируем уникальный ID (можно заменить на auto-increment, если нужно)
+    const id = Date.now();
+
     const transaction = db.transaction(["userData"], "readwrite");
     const store = transaction.objectStore("userData");
-    const request = store.put({ id: 1, name, phone }); // Сохраняем данные
+    const request = store.put({ id, name, phone }); // Сохраняем данные
 
     request.onsuccess = () => {
         alert("Данные сохранены!");
-        readUserData(); // Обновляем отображение
+        displayData(); // Обновляем таблицу
         document.getElementById("dataForm").reset(); // Очищаем форму
     };
 
@@ -59,15 +77,33 @@ document.getElementById("dataForm").addEventListener("submit", (event) => {
     };
 });
 
-// Очистка данных
-document.getElementById("clearBtn").addEventListener("click", () => {
+// Удаление отдельной записи
+function deleteRecord(event) {
+    const recordId = parseInt(this.dataset.id);
+
     const transaction = db.transaction(["userData"], "readwrite");
     const store = transaction.objectStore("userData");
-    const request = store.delete(1); // Удаляем запись
+    const request = store.delete(recordId); // Удаляем запись
 
     request.onsuccess = () => {
-        alert("Данные очищены!");
-        readUserData(); // Обновляем отображение
+        alert("Запись удалена!");
+        displayData(); // Обновляем таблицу
+    };
+
+    request.onerror = () => {
+        alert("Ошибка при удалении записи.");
+    };
+}
+
+// Очистка всех данных
+document.getElementById("clearAllBtn").addEventListener("click", () => {
+    const transaction = db.transaction(["userData"], "readwrite");
+    const store = transaction.objectStore("userData");
+    const request = store.clear(); // Очищаем всю таблицу
+
+    request.onsuccess = () => {
+        alert("Все данные очищены!");
+        displayData(); // Обновляем таблицу
     };
 
     request.onerror = () => {

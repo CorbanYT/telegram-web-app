@@ -3,16 +3,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f4f7fa;
     color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .container {
@@ -24,46 +24,88 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
 form label {
     display: block;
     margin-bottom: 0.5rem;
+    font-weight: bold;
 }
 
 form input {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.75rem;
     margin-bottom: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #007bff;
 }
 
 form button {
     width: 100%;
     padding: 0.75rem;
-    background-color: #008cba;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 form button:hover {
-    background-color: #005f79;
+    background-color: #0056b3;
 }
 
-#savedData {
+table {
+    width: 100%;
     margin-top: 2rem;
+    border-collapse: collapse;
 }
 
-#clearBtn {
-    background-color: #ff5722;
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #f4f7fa;
+    font-weight: bold;
+}
+
+.delete-btn {
+    background-color: transparent;
+    color: red;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.delete-btn:hover {
+    color: darkred;
+}
+
+#clearAllBtn {
+    display: block;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: #dc3545;
     color: white;
-    padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-#clearBtn:hover {
-    background-color: #cc3300;
+#clearAllBtn:hover {
+    background-color: #c82333;
 }
