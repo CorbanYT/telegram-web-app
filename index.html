@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram App Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Telegram Web App Demo</h1>
+        
+        <!-- Форма для ввода данных -->
+        <form id="dataForm">
+            <label for="nameInput">Имя:</label>
+            <input type="text" id="nameInput" required>
+            
+            <label for="phoneInput">Телефон:</label>
+            <input type="tel" id="phoneInput" pattern="[+]?[0-9\s()-]*" required>
+            
+            <button type="submit">Сохранить</button>
+        </form>
+
+        <!-- Блок для отображения сохранённых данных -->
+        <div id="savedData">
+            <h2>Ваши данные:</h2>
+            <p><strong>Имя:</strong> <span id="displayName"></span></p>
+            <p><strong>Телефон:</strong> <span id="displayPhone"></span></p>
+            <button id="clearBtn">Очистить данные</button>
+        </div>
+    </div>
+
+    <!-- Подключение скриптов -->
+    <script src="script.js"></script>
+</body>
+</html>
