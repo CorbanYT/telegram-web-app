@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram App Demo</title>
+    <title>Telegram Web App with Local Storage</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <div class="container">
         <h1>Telegram Web App Demo</h1>
@@ -14,12 +13,12 @@
         <!-- Форма для ввода данных -->
         <form id="dataForm">
             <label for="nameInput">Имя:</label>
-            <input type="text" id="nameInput" required>
+            <input type="text" id="nameInput" placeholder="Введите ваше имя">
             
             <label for="phoneInput">Телефон:</label>
-            <input type="tel" id="phoneInput" pattern="[+]?[0-9\s()-]*" required>
+            <input type="tel" id="phoneInput" placeholder="Введите ваш телефон">
             
-            <button type="submit">Сохранить</button>
+            <button type="submit">Сохранить данные</button>
         </form>
 
         <!-- Блок для отображения сохранённых данных -->
