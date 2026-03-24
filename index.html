@@ -1,21 +1,22 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.95, maximum-scale=1.0, user-scalable=no">
-    <title>Бар-менеджер</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="container">
-    <h1>Выбор стола</h1>
-    <div class="buttons">
-        <button class="table-btn" data-table="table1">Стол 1</button>
-        <button class="table-btn" data-table="table2">Стол 2</button>
-    </div>
+    <!DOCTYPE html>
+    <html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=0.95, maximum-scale=1.0, user-scalable=no">
+        <title>Бар-менеджер</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    <div class="container">
+        <h1>Выбор стола</h1>
+        <div class="buttons">
+            <!-- Пример правильной структуры кнопок -->
+            <button class="table-btn" data-table="table1">Стол <span class="order-sum">0</span> ₽</button>
+            <button class="table-btn" data-table="table2">Стол <span class="order-sum">0</span> ₽</button>
+        </div>
 
-    <div id="content-area"></div>
-</div>
-<script src="script.js"></script>
-</body>
-</html>
+        <div id="content-area"></div>
+    </div>
+    <script src="script.js"></script>
+    </body>
+    </html>

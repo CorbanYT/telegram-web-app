@@ -108,6 +108,24 @@ h1 {
     cursor: pointer;
 }
 
+
+
+/* --- Стили для кнопки "Назад" --- */
+.back-btn {
+    background-color: #f44336; /* Красный цвет (как пример) */
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;       /* Отступ сверху списка товаров */
+}
+
+/* Изменение цвета кнопки "Назад" при наведении */
+.back-btn:hover {
+    background-color: #e53935; /* Более темный красный */
+}
+
 .category-btn.active {
     background-color: #007bff;
     color: white;
