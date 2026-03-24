@@ -8,7 +8,7 @@ const PRODUCT_CATALOG = {
     Бар: {
       Алкоголь: {
         Водка: [
-          { name: "Водка", price: 850 },
+          { name: "Водка в АС", price: 850 },
           { name: "Белуга", price: 1200 },
           { name: "Беленькая", price: 650 }
         ],
