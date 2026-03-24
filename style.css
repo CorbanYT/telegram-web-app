@@ -19,7 +19,7 @@ body {
 /* Масштабирование для экранов с высоким DPI */
 @media (min-resolution: 2dppx) {
     html {
-        font-size: 18px; /* Немного увеличим шрифт для высоких разрешений */
+        font-size: 13px; /* Немного увеличим шрифт для высоких разрешений */
     }
 }
 
@@ -88,6 +88,7 @@ h1 {
     border-right: 2px solid #dee2e6;
     padding-right: 1.5rem;
     padding-left: 1.5rem; /* Добавляем отступ слева */
+    margin-top: 20px;
 }
 
 /* Заголовки панелей */
@@ -135,6 +136,7 @@ h1 {
 .right-panel {
     padding-left: 1.5rem;
     padding-right: 1.5rem; /* Добавляем отступ справа */
+    margin-top: 20px;
 }
 
 /* Таблица заказов */

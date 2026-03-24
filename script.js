@@ -1,6 +1,6 @@
 // Настройки базы данных
 const DB_NAME = "BarManagerDB";
-const DB_VERSION = 1;
+const DB_VERSION = 4;
 
 // Каталог товаров
 const PRODUCT_CATALOG = {
@@ -30,11 +30,13 @@ openRequest.onupgradeneeded = function(event) {
     // Создаем хранилища для каждого стола, если их нет
     if (!db.objectStoreNames.contains('table1')) {
         const table1 = db.createObjectStore('table1', { keyPath: 'id', autoIncrement: true });
+        table1.createIndex('name', 'name', { unique: false }); // Индексация по названию товара
         table1.createIndex('quantity', 'quantity', { unique: false });
     }
     
     if (!db.objectStoreNames.contains('table2')) {
         const table2 = db.createObjectStore('table2', { keyPath: 'id', autoIncrement: true });
+        table2.createIndex('name', 'name', { unique: false }); // Индексация по названию товара
         table2.createIndex('quantity', 'quantity', { unique: false });
     }
 };
@@ -204,23 +206,37 @@ function addToOrder(product, quantity) {
     const transaction = db.transaction([currentTable], 'readwrite');
     const store = transaction.objectStore(currentTable);
     
-    // Добавляем запись в базу данных
-    const request = store.add({
-        name: product.name,
-        pricePerItem: product.price,
-        quantity: Number(quantity.toFixed(2)), // Округляем до сотых
-        timestamp: Date.now() // Время добавления (для сортировки)
-    });
-
-    // Обработчик успеха
-    request.onsuccess = () => {
-        console.log('Товар добавлен:', product.name, 'Количество:', quantity);
-        displayOrders(); // Обновляем интерфейс
-    };
-
-    // Обработчик ошибки
-    request.onerror = () => {
-        console.error('Ошибка добавления товара:', event.target.error);
+    // Проверяем существование индекса 'name'
+    
+    
+    // Проверяем, есть ли уже такой товар в заказе
+    store.index('name').openCursor(IDBKeyRange.only(product.name)).onsuccess = function(event) {
+        const cursor = event.target.result;
+        
+        if (cursor) { // Если товар уже есть в заказе
+            const existingOrder = cursor.value;
+            const newQuantity = existingOrder.quantity + quantity;
+            
+            // Обновляем количество товара
+            store.put({
+                id: existingOrder.id,
+                name: product.name,
+                pricePerItem: product.price,
+                quantity: newQuantity,
+                timestamp: Date.now()
+            });
+            
+            displayOrders(); // Обновляем интерфейс
+        } else { // Если товара нет в заказе, добавляем новую запись
+            store.add({
+                name: product.name,
+                pricePerItem: product.price,
+                quantity: quantity,
+                timestamp: Date.now()
+            }).onsuccess = () => {
+                displayOrders(); // Обновляем интерфейс
+            };
+        }
     };
 }
 
