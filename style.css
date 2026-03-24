@@ -1,111 +1,166 @@
-/* Общий сброс */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f4f7fa;
+    background-color: #f0f4f8;
     color: #333;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
+    padding: 2rem;
 }
 
 .container {
-    width: 80%;
-    max-width: 600px;
-    background-color: white;
-    padding: 2rem;
+    width: 100%;
+    max-width: 900px;
+    background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 2rem;
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
-form label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 2rem;
 }
 
-form input {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: border-color 0.3s ease;
-}
-
-form input:focus {
-    outline: none;
-    border-color: #007bff;
-}
-
-form button {
-    width: 100%;
-    padding: 0.75rem;
+.table-btn {
+    padding: 0.8rem 1.8rem;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem;
     transition: background-color 0.3s ease;
 }
 
-form button:hover {
+.table-btn:hover {
     background-color: #0056b3;
 }
 
-table {
-    width: 100%;
-    margin-top: 2rem;
-    border-collapse: collapse;
+/* Стили для интерфейса стола */
+#content-area {
+    display: flex;
+    gap: 2rem;
 }
 
-th, td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid #eee;
+/* Левая колонка (Категории и товары) */
+.menu-column {
+    flex: 1;
 }
 
-th {
-    background-color: #f4f7fa;
-    font-weight: bold;
+.menu-column h2 {
+    margin-bottom: 1rem;
 }
 
-.delete-btn {
-    background-color: transparent;
-    color: red;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
-}
-
-.delete-btn:hover {
-    color: darkred;
-}
-
-#clearAllBtn {
+.category-btn {
     display: block;
-    margin-top: 1rem;
-    padding: 0.75rem;
-    background-color: #dc3545;
-    color: white;
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 0.5rem;
+    background-color: #e9ecef;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-#clearAllBtn:hover {
-    background-color: #c82333;
+.category-btn.active {
+    background-color: #007bff;
+    color: white;
 }
+
+.product-list {
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
+.product-item {
+    padding: 0.6rem;
+    margin-bottom: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-item.selected {
+   background-color: #d4edda; /* Зеленый для выбранного */
+}
+
+/* Правая колонка (Чек) */
+.check-column {
+   flex: 1.5;
+   border-left: 2px solid #dee2e6;
+   padding-left: 1.5rem;
+}
+
+.check-column h2 {
+   margin-bottom: 1rem;
+}
+
+.order-table {
+   width: 100%;
+   border-collapse: collapse;
+   margin-bottom: 1rem;
+}
+
+.order-table th, .order-table td {
+   padding: 0.6rem;
+   text-align: left;
+   border-bottom: 1px solid #dee2e6;
+}
+
+.order-table th {
+   background-color: #f8f9fa;
+   font-weight: bold;
+}
+
+.quantity-modal {
+   position: fixed; /* Располагаем поверх всего */
+   top: 0; left: 0;
+   width: 100%; height: 100%;
+   background-color: rgba(0,0,0,0.4);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.quantity-modal-content {
+   background-color: white;
+   padding: 2rem;
+   border-radius: 10px;
+   text-align: center;
+}
+
+.quantity-modal button {
+   margin-top: 1rem;
+}
+
+/* Кнопки действий */
+.action-btns {
+   display: flex;
+   gap: 1rem;
+   justify-content: flex-end;
+}
+
+.btn-delete, .btn-clear {
+   padding: 0.6rem 1.2rem;
+   border-radius: 5px;
+   border: none;
+   cursor: pointer;
+}
+
+.btn-delete { background-color: #dc3545; color: white; }
+.btn-clear { background-color: #6c757d; color: white; }
