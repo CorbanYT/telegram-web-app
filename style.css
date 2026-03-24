@@ -2,7 +2,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-border;
 }
 
 body {
@@ -87,18 +87,19 @@ h1 {
 .left-panel {
     border-right: 2px solid #dee2e6;
     padding-right: 1.5rem;
+    padding-left: 1.5rem; /* Добавляем отступ слева */
 }
 
 /* Заголовки панелей */
 .panel-header {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 /* Кнопки категорий */
 .category-btn {
     display: block;
     width: 100%;
-    padding: 0.6rem;
+    padding: 0.8rem;
     margin-bottom: 0.5rem;
     background-color: #e9ecef;
     border: none;
@@ -115,6 +116,7 @@ h1 {
 .product-list {
     max-height: 40vh;
     overflow-y: auto;
+    margin-bottom: 1.5rem; /* Добавим отступ снизу */
 }
 
 .product-item {
@@ -132,17 +134,18 @@ h1 {
 /* Правая панель (заказ) */
 .right-panel {
     padding-left: 1.5rem;
+    padding-right: 1.5rem; /* Добавляем отступ справа */
 }
 
 /* Таблица заказов */
 .order-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem; /* Добавим отступ снизу */
 }
 
 .order-table th, .order-table td {
-    padding: 0.6rem;
+    padding: 0.8rem;
     text-align: left;
     border-bottom: 1px solid #dee2e6;
 }
@@ -156,6 +159,7 @@ h1 {
 .total-row {
     font-weight: bold;
     text-align: right;
+    margin-top: 1rem; /* Добавим отступ сверху */
 }
 
 /* Блок кнопок управления заказом */
@@ -163,11 +167,12 @@ h1 {
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
+    margin-top: 1.5rem; /* Добавим отступ сверху */
 }
 
 /* Кнопки управления заказом */
 .btn-delete, .btn-clear {
-    padding: 0.6rem 1.6rem;
+    padding: 0.8rem 1.6rem;
     border-radius: 5px;
     border: none;
     cursor: pointer;
@@ -179,11 +184,7 @@ h1 {
 
 /* Кнопка удаления товара */
 .delete-btn {
-    background-color: transparent;
-    color: red;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 1rem; /* Увеличим размер иконки */
     transition: color 0.3s ease;
 }
 
@@ -277,4 +278,54 @@ button, input[type="number"], .modal-button {
 /* Класс для промежутков между кнопками */
 .button-gap {
     margin-right: 10px; /* Пространство между кнопками */
+}
+
+/* Адаптивные отступы для мобильных устройств */
+@media (max-width: 600px) { /* Для мобильных экранов */
+    .container {
+        padding: 1.5rem; /* Увеличим отступы */
+    }
+
+    .content-area {
+        gap: 1.5rem; /* Увеличим пространство между элементами */
+    }
+
+    .left-panel, .right-panel {
+        padding: 1.5rem; /* Увеличим внутренние отступы */
+    }
+
+    .product-list {
+        max-height: 50vh; /* Ограничим высоту списка товаров */
+        overflow-y: scroll; /* Добавим прокрутку */
+    }
+
+    .order-table {
+        font-size: 0.9rem; /* Уменьшим шрифт таблицы */
+    }
+
+    .action-btns {
+        margin-top: 1.5rem; /* Увеличим отступ сверху */
+    }
+
+    .modal-content {
+        padding: 1.5rem; /* Увеличим отступы модального окна */
+    }
+}
+
+/* Оптимизация высоты экрана */
+@media (max-width: 600px) {
+    html, body {
+        height: 100vh; /* Ограничим максимальную высоту */
+        overflow-x: hidden; /* Уберем горизонтальную прокрутку */
+    }
+
+    .container {
+        height: 100%; /* Занять всю высоту экрана */
+    }
+}
+
+/* Заголовки */
+h1, h2, h3 {
+    font-size: 1.5rem; /* Увеличим размер заголовков */
+    margin-bottom: 1.5rem; /* Добавим отступ снизу */
 }
