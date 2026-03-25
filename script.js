@@ -55,6 +55,7 @@ openRequest.onupgradeneeded = function(event) {
 
 openRequest.onsuccess = function(event) {
     db = event.target.result;
+    console.log('База данных открыта:', db); // <--- ВЫВОД В КОНСОЛЬ
     initUI(); // Инициализируем интерфейс после открытия базы данных
 };
 
@@ -68,7 +69,9 @@ function initUI() {
     document.querySelectorAll('.table-btn').forEach(btn => {
         btn.addEventListener('click', () => showTableInterface(btn.dataset.table));
     });
-    updateAllTableSums();
+
+    // Автоматика открытие столов при загрузке страницы
+    simulateTableSelection(); // <--- ВАЖНО!    
 }
 
 // --- Создание интерфейса для конкретного стола ---
@@ -110,6 +113,8 @@ function showTableInterface(tableName) {
 
     showCurrentCategoryContent();
     displayOrders(); // Загружаем сохраненный заказ сразу при открытии стола
+
+    updateCurrentTableSum(); // <--- ОБНОВЛЯЕМ СУММУ НА КНОПКЕ!
 }
 
 // --- Показать содержимое текущей категории ---
@@ -210,6 +215,21 @@ function selectProduct(product) {
     });
 }
 
+// Обновление суммы на всех кнопках столов
+function updateAllTableSums() {
+    // Список всех столов
+    const tables = ['table1', 'table2'];
+
+    // Обрабатываем каждый стол отдельно
+    tables.forEach(async (tableName) => {
+        const total = await calculateTableSum(tableName);
+        updateButtonSum(tableName, total);
+
+        // Выводим сумму в консоль
+        console.log(`Сумма для стола ${tableName}: ${total}`); // <--- ВЫВОД В КОНСОЛЬ
+    });
+}
+
 function isValidQuantity(qty) {
     return typeof qty === 'number' && !isNaN(qty) && qty >= 0.1;
 }
@@ -234,7 +254,9 @@ function addToOrder(product, quantity) {
                 timestamp: Date.now()
             });
             
+            console.log('Обновлён заказ:', existingOrder); // <--- ВЫВОД В КОНСОЛЬ
             displayOrders();
+            updateCurrentTableSum();
         } else {
             store.add({
                 name: product.name,
@@ -242,7 +264,9 @@ function addToOrder(product, quantity) {
                 quantity: quantity,
                 timestamp: Date.now()
             }).onsuccess = () => {
+                console.log('Добавлен новый заказ:', product); // <--- ВЫВОД В КОНСОЛЬ
                 displayOrders();
+                updateCurrentTableSum();
             };
         }
     };
@@ -251,15 +275,17 @@ function addToOrder(product, quantity) {
 // --- Отображение текущего заказа ---
 function displayOrders() {
     const tbody = document.querySelector('#order-table tbody');
-    tbody.innerHTML = '';
+    tbody.innerHTML = ''; // Очищаем таблицу
+
+    let totalSum = 0;
 
     const transaction = db.transaction([currentTable], 'readonly');
     const store = transaction.objectStore(currentTable);
     
     store.getAll().onsuccess = function(event) {
         const orders = event.target.result.sort((a,b) => b.timestamp - a.timestamp);
-        let totalSum = 0;
 
+        // Формируем строки с товарами
         orders.forEach(order => {
             const rowTotal = roundPrice(order.pricePerItem * order.quantity);
             totalSum += rowTotal;
@@ -277,14 +303,31 @@ function displayOrders() {
             tr.querySelector('.delete-btn').addEventListener('click', () => deleteOrder(order.id));
         });
 
+        // Добавляем итоговую строку только один раз, после цикла
         const totalRow = document.createElement('tr');
         totalRow.className = 'total-row';
         totalRow.innerHTML = `<td colspan="3" style="text-align:right; font-weight:bold;">Итого:</td><td colspan="2" style="font-weight:bold;">${roundPrice(totalSum)} ₽</td>`;
         tbody.appendChild(totalRow);
-        
-        // Обновляем сумму на кнопках столов после отрисовки заказа
-        updateAllTableSums();
     };
+}
+
+// Обновление суммы на кнопке конкретного стола
+function updateButtonSum(tableName, totalSum) {
+    // Находим кнопку нужного стола
+    const button = document.querySelector(`.table-btn[data-table="${tableName}"]`);
+    
+    if (button) {
+        console.log(`Кнопка стола ${tableName} найдена`); // <--- ВЫВОД В КОНСОЛЬ
+        const span = button.querySelector('.order-sum');
+        if (span) {
+            console.log(`Элемент .order-sum найден`); // <--- ВЫВОД В КОНСОЛЬ
+            span.textContent = roundPrice(totalSum);
+        } else {
+            console.warn(`Элемент .order-sum не найден для стола ${tableName}`); // <--- ВЫВОД В КОНСОЛЬ
+        }
+    } else {
+        console.warn(`Кнопка стола ${tableName} не найдена`); // <--- ВЫВОД В КОНСОЛЬ
+    }
 }
 
 // --- Округление цен до копеек ---
@@ -298,8 +341,8 @@ function deleteOrder(id) {
     const store = transaction.objectStore(currentTable);
     
     store.delete(id).onsuccess = () => {
-        displayOrders();
-        updateAllTableSums();
+        displayOrders(); // Обновляем таблицу заказов
+        updateCurrentTableSum(); // Обновляем сумму на кнопке
     };
 }
 
@@ -315,10 +358,10 @@ function deleteLastOrder() {
         if (orders.length === 0) return alert('Заказ пуст');
         
         const latestOrder = orders.reduce((prev, curr) => prev.timestamp > curr.timestamp ? prev : curr);
-        store.delete(latestOrder.id).onsuccess = () => displayOrders();
-        
-        // Обновляем суммы на кнопках после удаления
-        updateAllTableSums();
+        store.delete(latestOrder.id).onsuccess = () => {
+            displayOrders(); // Обновляем таблицу заказов
+            updateCurrentTableSum(); // Обновляем сумму на кнопке
+        };
     };
 }
 
@@ -331,31 +374,57 @@ function clearTable() {
     const transaction = db.transaction([currentTable], 'readwrite');
     const store = transaction.objectStore(currentTable);
     
-    store.clear().onsuccess = () => displayOrders();
-    
-     // Обновляем суммы на кнопках после очистки
-     updateAllTableSums();
+    store.clear().onsuccess = () => {
+        displayOrders(); // Обновляем таблицу заказов
+        updateCurrentTableSum(); // Обновляем сумму на кнопке
+    };
 }
 
+// Обновление суммы на кнопке текущего стола
+function updateCurrentTableSum() {
+    if (!currentTable) return; // Если стол не выбран, ничего не делаем
 
-// ===================== НОВЫЕ ФУНКЦИИ ДЛЯ СУММЫ НА КНОПКАХ =====================
-
-/**
- * Обновляет сумму на ВСЕХ кнопках выбора столов.
- */
-// Обновление суммы на всех кнопках столов
-async function updateAllTableSums() {
-    const buttons = document.querySelectorAll('.table-btn');
-    
-    for (const btn of buttons) {
-        const tableName = btn.dataset.table;
-        const span = btn.querySelector('.order-sum');
-
-        if (span && tableName) {
-            const total = await calculateTableSum(tableName);
-            span.textContent = roundPrice(total);
+    // Рассчитываем сумму для текущего стола
+    calculateTableSum(currentTable).then(total => {
+        // Находим кнопку текущего стола
+        const button = document.querySelector(`.table-btn[data-table="${currentTable}"]`);
+        
+        if (button) {
+            const span = button.querySelector('.order-sum');
+            if (span) {
+                span.textContent = roundPrice(total);
+            }
         }
+    });
+}
+
+// Расчет суммы заказа для стола (асинхронно)
+async function calculateTableSum(tableName) {
+    try {
+        const orders = await IDBPromise(tableName, 'readonly', store => store.getAll());
+        let totalSum = 0;
+        orders.forEach(order => {
+            totalSum += roundPrice(order.pricePerItem * order.quantity);
+        });
+        return totalSum;
+    } catch(error) {
+        console.error('Ошибка при расчете суммы:', error);
+        return 0;
     }
+}
+
+// Имитация нажатия на кнопки столов
+// Автоматическое обновление сумм при загрузке страницы
+function simulateTableSelection() {
+    console.log('Автоматическое обновление сумм столов'); // <--- ВЫВОД В КОНСОЛЬ
+
+    // Список всех столов
+    const tables = ['table1', 'table2'];
+
+    // Проходим по каждому столу и обновляем сумму
+    tables.forEach(tableName => {
+        refreshTableSumWithoutOpening(tableName);
+    });
 }
 
 // Вспомогательная функция для асинхронных операций с IndexedDB
@@ -364,35 +433,15 @@ function IDBPromise(storeName, mode, operation) {
         const transaction = db.transaction(storeName, mode);
         const store = transaction.objectStore(storeName);
         
-        operation(store).onsuccess = resolve;
-        operation(store).onerror = reject;
+        const req = operation(store);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = reject;
     });
-}
+}   
 
-/**
- * Считает общую сумму заказа для указанного стола.
- * @param {string} tableName - Имя хранилища ('table1' или 'table2')
- */
-// Расчет суммы заказа для стола (асинхронно)
-// Расчет суммы заказа для стола (асинхронно)
-async function calculateTableSum(tableName) {
-    try {
-        const result = await IDBPromise(tableName, 'readonly', store => store.getAll());
-        
-        // Проверяем, что результат — это массив
-        if (!Array.isArray(result)) {
-            return 0; // Возвращаем 0, если результат не массив
-        }
-
-        let totalSum = 0;
-
-        result.forEach(order => {
-            totalSum += roundPrice(order.pricePerItem * order.quantity);
-        });
-
-        return totalSum;
-    } catch (err) {
-        console.error('Ошибка при расчете суммы:', err);
-        return 0;
-    }
+// Обновление суммы на кнопке без открытия интерфейса
+function refreshTableSumWithoutOpening(tableName) {
+    calculateTableSum(tableName).then(total => {
+        updateButtonSum(tableName, total);
+    });
 }
