@@ -2,11 +2,11 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-border;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Roboto', sans-serif; /* Семейство шрифтов */
+    font-family: 'Roboto', sans-serif;
     background-color: #f4f7fa;
     color: #333;
     display: flex;
@@ -16,17 +16,14 @@ body {
     padding: 2rem;
 }
 
-/* Масштабирование для экранов с высоким DPI */
 @media (min-resolution: 2dppx) {
-    html {
-        font-size: 13px; /* Немного увеличим шрифт для высоких разрешений */
-    }
+    html { font-size: 13px; }
 }
 
 /* Контейнер верхнего уровня */
 .container {
     width: 100%;
-    max-width: 900px; /* Максимальная ширина на широких экранах */
+    max-width: 900px; /* ограничиваем максимальную ширину */
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
@@ -42,44 +39,44 @@ h1 {
 /* Кнопки выбора стола */
 .buttons {
     display: flex;
-    flex-wrap: wrap; /* Разрешены перенос строк */
+    flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
 }
 
-@media (max-width: 600px) { /* Для мобильных экранов */
-    .buttons {
-        flex-direction: column; /* Столбец вместо строки */
-        align-items: center; /* Центровка по горизонтали */
-    }
+@media (max-width: 600px) {
+    .buttons { flex-direction: column; align-items: center; }
 }
 
 /* Кнопки выбора стола */
 .table-btn {
-    padding: 1rem 2rem; /* Больше места для пальцев */
+    padding: 1rem 2rem;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1.2rem; /* Легче читать */
+    font-size: 1.2rem;
     transition: background-color 0.3s ease;
 }
 
-.table-btn:hover {
-    background-color: #0056b3;
-}
+.table-btn:hover { background-color: #0056b3; }
 
 /* Основное содержимое */
 .content-area {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Гибкая сетка */
     gap: 2rem;
 }
 
-@media (max-width: 600px) { /* Для мобильных экранов */
+/* Балансировка ширины на ПК */
+@media (min-width: 768px) {
     .content-area {
-        grid-template-columns: 1fr; /* Одна колонка */
+        grid-template-columns: 1fr 1.5fr; /* левая панель 1 часть, правая 1.5 части */
+    }
+
+    /* Минимальная ширина левой панели */
+    .left-panel {
+        min-width: 300px;
     }
 }
 
@@ -87,14 +84,12 @@ h1 {
 .left-panel {
     border-right: 2px solid #dee2e6;
     padding-right: 1.5rem;
-    padding-left: 1.5rem; /* Добавляем отступ слева */
+    padding-left: 1.5rem;
     margin-top: 20px;
 }
 
 /* Заголовки панелей */
-.panel-header {
-    margin-bottom: 1.5rem;
-}
+.panel-header { margin-bottom: 1.5rem; }
 
 /* Кнопки категорий */
 .category-btn {
@@ -108,34 +103,24 @@ h1 {
     cursor: pointer;
 }
 
-
-
-/* --- Стили для кнопки "Назад" --- */
 .back-btn {
-    background-color: #f44336; /* Красный цвет (как пример) */
+    background-color: #f44336;
     color: white;
     padding: 8px 16px;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-bottom: 15px;       /* Отступ сверху списка товаров */
+    margin-bottom: 15px;
 }
 
-/* Изменение цвета кнопки "Назад" при наведении */
-.back-btn:hover {
-    background-color: #e53935; /* Более темный красный */
-}
+.back-btn:hover { background-color: #e53935; }
 
-.category-btn.active {
-    background-color: #007bff;
-    color: white;
-}
+.category-btn.active { background-color: #007bff; color: white; }
 
 /* Список товаров */
 .product-list {
     max-height: 40vh;
     overflow-y: auto;
-    margin-bottom: 1.5rem; /* Добавим отступ снизу */
+    margin-bottom: 1.5rem;
 }
 
 .product-item {
@@ -146,14 +131,12 @@ h1 {
     cursor: pointer;
 }
 
-.product-item.selected {
-    background-color: #d4edda;
-}
+.product-item.selected { background-color: #d4edda; }
 
 /* Правая панель (заказ) */
 .right-panel {
     padding-left: 1.5rem;
-    padding-right: 1.5rem; /* Добавляем отступ справа */
+    padding-right: 1.5rem;
     margin-top: 20px;
 }
 
@@ -161,33 +144,49 @@ h1 {
 .order-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 1.5rem; /* Добавим отступ снизу */
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    overflow-x: auto; /* горизонтальная прокрутка на мобильных */
 }
 
 .order-table th, .order-table td {
-    padding: 0.8rem;
+    padding: 1rem;
     text-align: left;
     border-bottom: 1px solid #dee2e6;
 }
 
 .order-table th {
-    background-color: #f8f9fa;
+    background-color: #e9ecef;
     font-weight: bold;
 }
 
-/* Строка с общей суммой */
-.total-row {
-    font-weight: bold;
-    text-align: right;
-    margin-top: 1rem; /* Добавим отступ сверху */
+/* Выделяем отданные позиции */
+.order-table tr.done {
+    background-color: #f0f0f0;
+}
+
+.order-table tr.done td {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+/* Красивее выглядят кнопки "Удалить" */
+.delete-btn {
+    font-size: 1.2rem;
+    color: red;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    color: darkred;
 }
 
 /* Блок кнопок управления заказом */
 .action-btns {
+    margin-top: 1.5rem;
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
-    margin-top: 1.5rem; /* Добавим отступ сверху */
 }
 
 /* Кнопки управления заказом */
@@ -202,17 +201,104 @@ h1 {
 .btn-delete { background-color: #dc3545; color: white; }
 .btn-clear { background-color: #6c757d; color: white; }
 
-/* Кнопка удаления товара */
-.delete-btn {
-    font-size: 1rem; /* Увеличим размер иконки */
-    transition: color 0.3s ease;
+/* Улучшения оформления заголовков */
+h1, h2, h3 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+
+/* Улучшено оформление кнопок */
+.note-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
 }
 
-.delete-btn:hover {
-    color: darkred;
+.note-save {
+    background-color: #28a745;
+    color: white;
 }
 
-/* Модальное окно добавления товара */
+.note-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.note-save:hover {
+    background-color: #218838;
+}
+
+.note-delete:hover {
+    background-color: #c82333;
+}
+
+/* БЛОК ЗАМЕТКИ */
+
+/* Блок заметки */
+.notes-block {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.notes-block h3 {
+    margin-bottom: 0.5rem;
+}
+
+.notes-block textarea {
+    width: 100%;
+    height: 100px;
+    padding: 0.6rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1rem;
+    resize: vertical;
+}
+
+.note-actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Улучшенная адаптивность */
+@media (max-width: 600px) {
+    .container { padding: 1.5rem; }
+    .content-area { gap: 1.5rem; }
+    .left-panel, .right-panel { padding: 1.5rem; }
+    .product-list { max-height: 50vh; overflow-y: scroll; }
+    .order-table { font-size: 0.9rem;  }
+    .action-btns { margin-top: 1.5rem; }
+    .modal-content { padding: 1.5rem; }
+}
+
+/* Оптимизация высоты экрана */
+@media (max-width: 600px) {
+    html, body { height: 100vh; overflow-x: hidden; }
+    .container { height: 100%; }
+}
+
+/* Дополнительные улучшения */
+.content-area {
+    display: grid;
+    gap: 2rem;
+}
+
+/* Распределение ширины на ПК */
+@media (min-width: 768px) {
+    .content-area {
+        grid-template-columns: 1fr 1.5fr; /* левая панель 1 часть, правая 1.5 части */
+    }
+
+    /* Минимальная ширина левой панели */
+    .left-panel {
+        min-width: 300px;
+    }
+}
+
+/* МОДАЛЬНОЕ ОКНО (центральное расположение) */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -227,23 +313,22 @@ h1 {
 }
 
 .modal-content {
-    width: calc(100vw - 40px); /* Почти на всю ширину экрана */
-    max-width: 400px; /* Максимальная ширина на широких экранах */
-    background-color: white; /* Белый фон модального окна */
+    width: calc(100vw - 40px); /* почти на всю ширину экрана */
+    max-width: 400px; /* максимальная ширина на широких экранах */
+    background-color: white;
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
 }
 
 /* Контейнеры модального окна */
-.quantity-container,
-.controls-container {
-    width: 100%; /* Занимают всю ширину контейнера */
+.quantity-container, .controls-container {
+    width: 100%;
 }
 
 /* Поле ввода количества */
 .modal-quantity {
-    width: 100%; /* Растягиваем на всю ширину */
+    width: 100%;
     padding: 0.5rem;
     font-size: 1rem;
     text-align: center;
@@ -252,8 +337,8 @@ h1 {
 /* Кнопки управления количеством */
 .controls-container {
     display: flex;
-    justify-content: center; /* Выравнивание по центру */
-    gap: 0.5rem; /* Расстояние между кнопками */
+    justify-content: center;
+    gap: 0.5rem;
     margin-bottom: 1rem;
 }
 
@@ -268,9 +353,7 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
-.qty-btn:hover {
-    background-color: #0056b3;
-}
+.qty-btn:hover { background-color: #0056b3; }
 
 /* Основная кнопка "Добавить в заказ" */
 .modal-button {
@@ -284,68 +367,14 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
-.modal-button:hover {
-    background-color: #0056b3;
-}
+.modal-button:hover { background-color: #0056b3; }
 
 /* Универсальные настройки минимальных размеров */
 button, input[type="number"], .modal-button {
-    min-width: 80px; /* Удобная минимальная ширина */
-    min-height: 40px; /* Удобная высота */
-    font-size: inherit; /* Наследуем размер шрифта */
+    min-width: 80px;
+    min-height: 40px;
+    font-size: inherit;
 }
 
 /* Класс для промежутков между кнопками */
-.button-gap {
-    margin-right: 10px; /* Пространство между кнопками */
-}
-
-/* Адаптивные отступы для мобильных устройств */
-@media (max-width: 600px) { /* Для мобильных экранов */
-    .container {
-        padding: 1.5rem; /* Увеличим отступы */
-    }
-
-    .content-area {
-        gap: 1.5rem; /* Увеличим пространство между элементами */
-    }
-
-    .left-panel, .right-panel {
-        padding: 1.5rem; /* Увеличим внутренние отступы */
-    }
-
-    .product-list {
-        max-height: 50vh; /* Ограничим высоту списка товаров */
-        overflow-y: scroll; /* Добавим прокрутку */
-    }
-
-    .order-table {
-        font-size: 0.9rem; /* Уменьшим шрифт таблицы */
-    }
-
-    .action-btns {
-        margin-top: 1.5rem; /* Увеличим отступ сверху */
-    }
-
-    .modal-content {
-        padding: 1.5rem; /* Увеличим отступы модального окна */
-    }
-}
-
-/* Оптимизация высоты экрана */
-@media (max-width: 600px) {
-    html, body {
-        height: 100vh; /* Ограничим максимальную высоту */
-        overflow-x: hidden; /* Уберем горизонтальную прокрутку */
-    }
-
-    .container {
-        height: 100%; /* Занять всю высоту экрана */
-    }
-}
-
-/* Заголовки */
-h1, h2, h3 {
-    font-size: 1.5rem; /* Увеличим размер заголовков */
-    margin-bottom: 1.5rem; /* Добавим отступ снизу */
-}
+.button-gap { margin-right: 10px; }
