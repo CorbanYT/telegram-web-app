@@ -122,14 +122,14 @@ const PRODUCT_CATALOG = {
               { name: "Улитки", price: 850},
               { name: "Лимон с сахаром", price: 150},
               { name: "Креветки в кляре", price: 610},
-              { name: "", price: },
-              { name: "", price: },
-              { name: "", price: },
-              { name: "", price: },
-              { name: "", price: },
-              { name: "", price: },
-              { name: "", price: },
-              { name: "", price: }
+              { name: "Гренки чесночные", price: 250},
+              { name: "Кольца кальмара", price: 330},
+              { name: "Луковые кольца", price: 250},
+              { name: "Пивная тарелка", price: 610},
+              { name: "Сырные шарики", price: 530},
+              { name: "Янтык", price: 350},
+              { name: "Фисташки", price: 330},
+              { name: "Арахис", price: 200}
             ],
         },
         Тара: [
