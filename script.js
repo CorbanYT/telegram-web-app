@@ -116,6 +116,21 @@ const PRODUCT_CATALOG = {
                 {name: "Милано", price: 570}
               ]
             }
+            Закуски: [
+              { name: "Сырная тарелка", price: 450},
+              { name: "Мясное ассорти", price: 600},
+              { name: "Улитки", price: 850},
+              { name: "Лимон с сахаром", price: 150},
+              { name: "Креветки в кляре", price: 610},
+              { name: "", price: },
+              { name: "", price: },
+              { name: "", price: },
+              { name: "", price: },
+              { name: "", price: },
+              { name: "", price: },
+              { name: "", price: },
+              { name: "", price: }
+            ],
         },
         Тара: [
           { name: "Контейнер 1блюло", price: 40 },
