@@ -115,7 +115,7 @@ const PRODUCT_CATALOG = {
                 {name: "Чикаго", price: 550},
                 {name: "Милано", price: 570}
               ],
-            
+            },
             Закуски: [
               { name: "Сырная тарелка", price: 450},
               { name: "Мясное ассорти", price: 600},
@@ -132,7 +132,7 @@ const PRODUCT_CATALOG = {
               { name: "Арахис", price: 200}
             ],
 
-            }
+        
         },
         Тара: [
           { name: "Контейнер 1блюло", price: 40 },
