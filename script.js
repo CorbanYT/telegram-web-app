@@ -33,7 +33,11 @@ const PRODUCT_CATALOG = {
               { name: "Цезарь", price: 250 },
               { name: "Хуета", price: 220 }
             ]
-        }
+        },
+        Тара: [
+          { name: "Контейнер 1блюло", price: 40 }
+        ]
+  
     }
   }
 };
