@@ -85,7 +85,25 @@ const PRODUCT_CATALOG = {
               { name: "С телятиной", price: 490},
               { name: "С Хрустящими баклажанами", price: 430},
               { name: "Кремметта", price: 610}
-            ]
+            ],
+            Пицца: {
+              Большие: [
+                {name: "", price: },
+                {name: "", price: },
+                {name: "", price: },
+                {name: "", price: },
+                {name: "", price: },
+                {name: "", price: },
+                {name: "", price: },
+                {name: "", price: },
+                {name: "", price: },
+                {name: "", price: },
+                {name: "", price: },
+                {name: "", price: }
+              ],
+              Маленькие: [
+                
+            }
         },
         Тара: [
           { name: "Контейнер 1блюло", price: 40 },
