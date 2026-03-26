@@ -34,10 +34,21 @@ const PRODUCT_CATALOG = {
               { name: "Нагетсы", price: 150 },
               { name: "Цезарь", price: 250 },
               { name: "Хуета", price: 220 }
+            ],
+            Салаты: [
+              { name: "Цезарь", price: 490},
+              { name: "Теплый", price: 480},
+              { name: "Рыбный", price: 550},
+              { name: "С_телятиной", price: 490},
+              { name: "С_Хрустящими_баклажанами", price: 430},
+              { name: "Кремметта", price: 610}
             ]
         },
         Тара: [
           { name: "Контейнер 1блюло", price: 40 }
+          { name: "роо", price: 72},
+          { name: "ро", price: 88}
+          
         ]
   
     }
