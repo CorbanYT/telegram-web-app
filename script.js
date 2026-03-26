@@ -82,9 +82,8 @@ const PRODUCT_CATALOG = {
               { name: "Цезарь", price: 490},
               { name: "Теплый", price: 480},
               { name: "Рыбный", price: 550},
-              { name: ,
-               "С_телятиной", price: 490},
-              { name: "С_Хрустящими_баклажанами", price: 430},
+              { name: "С телятиной", price: 490},
+              { name: "С Хрустящими баклажанами", price: 430},
               { name: "Кремметта", price: 610}
             ]
         },
