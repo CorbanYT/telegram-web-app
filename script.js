@@ -45,7 +45,7 @@ const PRODUCT_CATALOG = {
             ]
         },
         Тара: [
-          { name: "Контейнер 1блюло", price: 40 }
+          { name: "Контейнер 1блюло", price: 40 },
           { name: "роо", price: 72},
           { name: "ро", price: 88}
           
