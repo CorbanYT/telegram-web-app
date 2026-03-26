@@ -88,21 +88,33 @@ const PRODUCT_CATALOG = {
             ],
             Пицца: {
               Большие: [
-                {name: "", price: },
-                {name: "", price: },
-                {name: "", price: },
-                {name: "", price: },
-                {name: "", price: },
-                {name: "", price: },
-                {name: "", price: },
-                {name: "", price: },
-                {name: "", price: },
-                {name: "", price: },
-                {name: "", price: },
-                {name: "", price: }
+                {name: "Пепперони", price: 850},
+                {name: "Салями", price: 850},
+                {name: "5 сыров", price: 1100},
+                {name: "4 сыра", price: 1000},
+                {name: "Маргарита", price: 660},
+                {name: "Прошутто", price: 850},
+                {name: "Гавайская", price: 960},
+                {name: "Маринара", price: 1150},
+                {name: "Мясная", price: 1100},
+                {name: "Мексиканская", price: 1000},
+                {name: "Чикаго", price: 1000},
+                {name: "Милано", price: 1050}
               ],
               Маленькие: [
-                
+                {name: "Пепперони", price: 490},
+                {name: "Салями", price: 490},
+                {name: "5 сыров", price: 610},
+                {name: "4 сыра", price: 550},
+                {name: "Маргарита", price: 360},
+                {name: "Прошутто", price: 490},
+                {name: "Гавайская", price: 530},
+                {name: "Маринара", price: 670},
+                {name: "Мясная", price: 610},
+                {name: "Мексиканская", price: 550},
+                {name: "Чикаго", price: 550},
+                {name: "Милано", price: 570}
+              ]
             }
         },
         Тара: [
