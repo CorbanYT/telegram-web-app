@@ -58,7 +58,7 @@ const PRODUCT_CATALOG = {
                 { name: "Суп Лапша", price: 250},
                 { name: "Суп Сырный", price: 310},
                 { name: "Суп-пюре грибной", price: 310},
-                { name: "Том Ям", price: 520},
+                { name: "Том Ям", price: 600},
                 { name: "Окрошка", price: 330}
             ],
             Вторые_блюда: [
@@ -151,6 +151,14 @@ const PRODUCT_CATALOG = {
               { name: "Сэт №2", price: 1550},
               { name: "Сэт №3", price: 1650},
               { name: "Сэт №4", price: 1900}
+            ],
+            Десерты: [
+              { name: "Блинчики с сиропом", price: 220},
+              { name: "Сырники с сиропом", price: 250},
+              { name: "Мороженое с сиропом", price: 220},
+              { name: "Венские вафли", price: 450},
+              { name: "Тирамису", price: 330},
+              { name: "Сникерс", price: 330}
             ]
 
         
