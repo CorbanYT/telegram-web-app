@@ -156,10 +156,14 @@ const PRODUCT_CATALOG = {
         
         },
         Тара: [
-          { name: "Контейнер 1блюло", price: 40 },
-          { name: "роо", price: 72},
-          { name: "ро", price: 88}
-          
+          { name: "Контейнер 1блюдо", price: 40 },
+          { name: "Контейнер б", price: 25},
+          { name: "Контейнер м", price: 20},
+          { name: "Сэтница", price: 30},
+          { name: "Коробка б", price: 50},
+          { name: "Коробка м", price: 40},
+          { name: "Соусник пл", price: 5},
+          { name: "Стакан купол", price: 20}
         ]
   
     }
