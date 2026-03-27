@@ -265,6 +265,13 @@ function showTableInterface(tableName) {
                 <div class="panel-header"><h2>Категории</h2></div>
                 <button class="category-btn back-btn" style="display:none;">Назад</button>
                 <div class="product-list" id="product-list"></div>
+                
+                <!-- Новое поисковое окно -->
+                <div class="search-block">
+                    <label for="search-input">Поиск товара:</label>
+                    <input type="text" id="search-input" placeholder="Начните вводить название товара">
+                    <ul class="search-results" id="search-results"></ul>
+                </div>
             </div>
             
             <div class="right-panel">
@@ -291,6 +298,9 @@ function showTableInterface(tableName) {
     showCurrentCategoryContent();
     displayOrders();
     updateCurrentTableSum();
+
+    // Инициализация поиска
+    initSearchFunctionality();
 }
 
 // --- Показать содержимое текущей категории ---
@@ -627,4 +637,112 @@ function toggleDone(id) {
 function addHover(el, cls) {
     el.addEventListener('mouseenter', () => el.classList.add(`${cls}hovered`));
     el.addEventListener('mouseleave', () => el.classList.remove(`${cls}hovered`));
+}
+
+// *** ПОИСКОВАЯ ФУНКЦИОНАЛЬНОСТЬ ***
+
+// Инициализация поиска
+function initSearchFunctionality() {
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+
+    // Преобразуем каталог в плоский массив товаров
+    const flatCatalog = flattenCatalog(PRODUCT_CATALOG);
+
+    // Обработчик ввода в поисковое поле
+    searchInput.addEventListener('input', debounce(function() {
+        const query = searchInput.value.trim().toLowerCase();
+        if (!query) {
+            searchResults.innerHTML = '';
+            return;
+        }
+
+        // Ищем подходящие товары
+        const results = fuzzySearch(query, flatCatalog);
+
+        // Отображаем результаты
+        renderSearchResults(results, searchResults);
+    }, 300));
+
+    // Обработчик клика по результатам поиска
+    searchResults.addEventListener('click', function(event) {
+        if (event.target.tagName !== 'LI') return;
+
+        const productName = event.target.dataset.productName;
+        const selectedProduct = flatCatalog.find(p => p.name === productName);
+
+        if (selectedProduct) {
+            selectProduct(selectedProduct);
+        }
+    });
+}
+
+// Преобразование иерархического каталога в плоский массив товаров
+function flattenCatalog(catalog) {
+    const result = [];
+
+    function traverse(obj) {
+        for(let key in obj) {
+            if(Array.isArray(obj[key])) {
+                result.push(...obj[key]);
+            } else {
+                traverse(obj[key]);
+            }
+        }
+    }
+
+    traverse(catalog);
+    return result;
+}
+
+// Дебаунсер для оптимизации частых вводов
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func.apply(this, args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Фаззи-поиск с учётом ошибок
+function fuzzySearch(query, catalog) {
+    return catalog.filter(product => {
+        const normalizedQuery = normalizeString(query);
+        const normalizedName = normalizeString(product.name);
+
+        // Простая реализация фаззи-поиска
+        let pos = 0;
+        for(let char of normalizedQuery) {
+            pos = normalizedName.indexOf(char, pos);
+            if(pos === -1) return false;
+            pos++;
+        }
+        return true;
+    });
+}
+
+// Приведение строки к нормализованному виду
+function normalizeString(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
+// Рендеринг результатов поиска
+function renderSearchResults(results, container) {
+    container.innerHTML = '';
+
+    if(results.length === 0) {
+        container.innerHTML = '<li>Нет совпадений</li>';
+        return;
+    }
+
+    results.slice(0, 10).forEach(result => {
+        const li = document.createElement('li');
+        li.textContent = `${result.name} — ${result.price} ₽`;
+        li.dataset.productName = result.name;
+        container.appendChild(li);
+    });
 }
