@@ -159,7 +159,7 @@ const PRODUCT_CATALOG = {
               { name: "Запеч. с копч. курицей", price: 390},
               { name: "Сэт №1", price: 1650},
               { name: "Сэт №2", price: 1550},
-              { name: "Сэт №3", price: 1650},
+              { name: "Сэт №3", padStart(2, '0'), price: 1650},
               { name: "Сэт №4", price: 1900}
             ],
             Десерты: [
@@ -211,7 +211,7 @@ const DB_NAME = "BarManagerDB1";
 const DB_VERSION = 7;
 
 // Массив с номерами столов
-const TABLES = ['table1', 'table2', 'table3', 'table4', 'table5', 'table6'];
+const TABLES = ['table1', 'table2', 'table3', 'table4', '5', '6'];
 
 // --- Открытие и инициализация базы данных ---
 const openRequest = indexedDB.open(DB_NAME, DB_VERSION);
@@ -806,7 +806,7 @@ function drawCheckOnCanvas(checkText) {
     
     // Автоматически определяем нужную высоту
     const lines = checkText.split('\n');
-    canvas.height = 20 * lines.length + 50; // 20 пикселей на строку + запас
+    canvas.height = 25 * lines.length + 50; // 25 пикселей на строку + запас
 
     const ctx = canvas.getContext('2d');
 
@@ -819,17 +819,20 @@ function drawCheckOnCanvas(checkText) {
     ctx.lineWidth = 1;
     ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
 
+    // Логотип заведения (можно заменить на реальный логотип)
+    ctx.drawImage(document.createElement('img').src = 'logo.png', 10, 10, 80, 80);
+
     // Название заведения
-    ctx.font = 'bold 30px Arial';
+    ctx.font = 'bold 24px Arial';
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#4caf50';
-    ctx.fillText('ШАРЕДА', canvas.width / 2, 50);
+    ctx.fillStyle = '#333'; // Темно-серый цвет
+    ctx.fillText('ШАРЕДА', canvas.width / 2, 110);
 
     // Данные чека
     ctx.font = '14px Arial';
     ctx.textAlign = 'start';
-    ctx.fillStyle = '#333';
-    ctx.fillText(checkText, 20, 100);
+    ctx.fillStyle = '#333'; // Темно-серый цвет
+    ctx.fillText(checkText, 20, 150);
 
     // Линия внизу
     ctx.beginPath();
