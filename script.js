@@ -175,6 +175,16 @@ const PRODUCT_CATALOG = {
               { name: "Венские вафли", price: 450},
               { name: "Тирамису", price: 330},
               { name: "Сникерс", price: 330}
+            ],
+            Соусы: [
+              { name: "Соус Горчица", price: 60},
+              { name: "Соус Кетчуп", price: 60},
+              { name: "Соус Кисло-сладкий", price: 80},
+              { name: "Соус Белый", price: 60},
+              { name: "Соус Сметана", price: 70},
+              { name: "Соус Майонез", price: 60},
+              { name: "Соус Сыр", price: 60},
+              { name: "Соус Сырный", price: 80}
             ]
 
         
