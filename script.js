@@ -43,8 +43,18 @@ const PRODUCT_CATALOG = {
             },
             Безалкогольные: {
                 Напитки: [
-                  { name: "Кола", price: 100 },
-                  { name: "Фанта", price: 100 }
+                  { name: "Сок 0,2", price: 80 },
+                  { name: "Сок 1л", price: 250 },
+                  { name: "Пепси 1л", price: 250},
+                  { name: "Пепси жб", price: 150},
+                  { name: "Вода 0,5", price: 100},
+                  { name: "Амерекано", price: 180},
+                  { name: "Капучино", price: 200},
+                  { name: "Латте", price: 200},
+                  { name: "Эспрессо", price: 150},
+                  { name: "Энергетик дор", price: 220},
+                  { name: "Энергетик бомж", price: 150},
+                  { name: "Энергетик 0,25", price: 250}
                 ]
             }
         },
