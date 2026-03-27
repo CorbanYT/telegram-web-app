@@ -211,7 +211,7 @@ const DB_NAME = "BarManagerDB1";
 const DB_VERSION = 7;
 
 // Массив с номерами столов
-const TABLES = ['table1', 'table2', 'table3', 'table4', '5', '6'];
+const TABLES = ['table1', 'table2', 'table3', 'table4', 'table5', 'table6'];
 
 // --- Открытие и инициализация базы данных ---
 const openRequest = indexedDB.open(DB_NAME, DB_VERSION);
