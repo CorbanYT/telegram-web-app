@@ -159,7 +159,7 @@ const PRODUCT_CATALOG = {
               { name: "Запеч. с копч. курицей", price: 390},
               { name: "Сэт №1", price: 1650},
               { name: "Сэт №2", price: 1550},
-              { name: "Сэт №3", padStart(2, '0'), price: 1650},
+              { name: "Сэт №3", price: 1650},
               { name: "Сэт №4", price: 1900}
             ],
             Десерты: [
