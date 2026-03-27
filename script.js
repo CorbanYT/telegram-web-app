@@ -270,7 +270,7 @@ function showTableInterface(tableName) {
                 <div class="search-block">
                     <label for="search-input">Поиск товара:</label>
                     <input type="text" id="search-input" placeholder="Начните вводить название товара">
-                    <ul class="search-results" id="search-results"></ul>
+                    <div class="search-results" id="search-results"></div>
                 </div>
             </div>
             
@@ -666,7 +666,7 @@ function initSearchFunctionality() {
 
     // Обработчик клика по результатам поиска
     searchResults.addEventListener('click', function(event) {
-        if (event.target.tagName !== 'LI') return;
+        if (event.target.tagName !== 'BUTTON') return;
 
         const productName = event.target.dataset.productName;
         const selectedProduct = flatCatalog.find(p => p.name === productName);
@@ -730,19 +730,23 @@ function normalizeString(str) {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-// Рендеринг результатов поиска
+// Рендеринг результатов поиска (красивые карточки!)
 function renderSearchResults(results, container) {
     container.innerHTML = '';
 
     if(results.length === 0) {
-        container.innerHTML = '<li>Нет совпадений</li>';
+        container.innerHTML = '<div class="search-empty">Нет совпадений</div>';
         return;
     }
 
     results.slice(0, 10).forEach(result => {
-        const li = document.createElement('li');
-        li.textContent = `${result.name} — ${result.price} ₽`;
-        li.dataset.productName = result.name;
-        container.appendChild(li);
+        const card = document.createElement('button');
+        card.className = 'search-card';
+        card.dataset.productName = result.name;
+        card.innerHTML = `
+            <div class="card-name">${result.name}</div>
+            <div class="card-price">${result.price} ₽</div>
+        `;
+        container.append(card);
     });
 }
