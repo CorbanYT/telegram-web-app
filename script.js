@@ -139,7 +139,8 @@ const PRODUCT_CATALOG = {
               { name: "Сырные шарики", price: 530},
               { name: "Янтык", price: 350},
               { name: "Фисташки", price: 330},
-              { name: "Арахис", price: 200}
+              { name: "Арахис", price: 200},
+              { name: "Пивной сэт", price: 1400}
             ],
             Роллы: [
               { name: "Императорские", price: 580},
