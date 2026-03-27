@@ -163,6 +163,19 @@ const PRODUCT_CATALOG = {
 
         
         },
+        Мангал: [
+          { name: "Шашлык свинной", price: },
+          { name: "Шашлык куриный", price: },
+          { name:priceprice: },
+          { name: "", price: },
+          { name: "", price: },
+          { name: "", price: },
+          { name: "", price: },
+          { name: "", price: },
+          { name: "", price: },
+          { name: "", price: },
+          { name: "", price: }
+        ],
         Тара: [
           { name: "Контейнер 1блюдо", price: 40 },
           { name: "Контейнер б", price: 25},
