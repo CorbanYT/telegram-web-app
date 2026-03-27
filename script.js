@@ -54,7 +54,11 @@ const PRODUCT_CATALOG = {
                   { name: "Эспрессо", price: 150},
                   { name: "Энергетик дор", price: 220},
                   { name: "Энергетик бомж", price: 150},
-                  { name: "Энергетик 0,25", price: 250}
+                  { name: "Энергетик 0,25", price: 250},
+                  { name: "Чай м(0,5)", price: 170},
+                  { name: "Чай б(1,0)", price: 280},
+                  { name: "Иммунный м(0,5)", price: 250},
+                  { name: "Иммунный б(1,0)", price: 350}
                 ]
             }
         },
@@ -77,6 +81,7 @@ const PRODUCT_CATALOG = {
               { name: "Телятина с овощами", price: 660},
               { name: "Рыба под сливочным соусом", price: 730},
               { name: "Рыба с овощами", price: 680},
+ 
               { name: "Карбонара", price: 330},
               { name: "Болоньезе", price: 330},
               { name: "Бургер Куриный", price: 430},
