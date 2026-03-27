@@ -798,12 +798,16 @@ function generateCheckText(orders) {
     return checkText;
 }
 
-// Рисование чека на канвасе
+// Рисование чека на канвасе (исправлено!)
 function drawCheckOnCanvas(checkText) {
     // Создаем скрытый канвас
     const canvas = document.createElement('canvas');
     canvas.width = 300;
-    canvas.height = 500;
+    
+    // Автоматически определяем нужную высоту
+    const lines = checkText.split('\n');
+    canvas.height = 20 * lines.length + 50; // 20 пикселей на строку + запас
+
     const ctx = canvas.getContext('2d');
 
     // Фон
