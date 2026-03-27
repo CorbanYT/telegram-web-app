@@ -287,6 +287,8 @@ function showTableInterface(tableName) {
                 <div class="action-btns">
                    <button class="btn-delete">Удалить выбранный товар</button>
                    <button class="btn-clear">Очистить весь стол</button>
+                   <!-- Новая кнопка -->
+                   <button class="btn-print">Сформировать чек</button>
                 </div>
             </div>
         </div>
@@ -294,6 +296,9 @@ function showTableInterface(tableName) {
 
     document.querySelector('.btn-delete').addEventListener('click', deleteLastOrder);
     document.querySelector('.btn-clear').addEventListener('click', clearTable);
+
+    // Добавляем слушатель для новой кнопки
+    document.querySelector('.btn-print').addEventListener('click', generateCheckImage);
 
     showCurrentCategoryContent();
     displayOrders();
@@ -747,6 +752,109 @@ function renderSearchResults(results, container) {
             <div class="card-name">${result.name}</div>
             <div class="card-price">${result.price} ₽</div>
         `;
-        container.append(card);
+        container.appendChild(card);
     });
+}
+
+// *** ФОРМИРОВАНИЕ ЧЕКА ***
+
+// Функция формирования чека в виде изображения
+function generateCheckImage() {
+    if (!currentTable) return alert('Выберите стол');
+
+    // Получаем текущие заказы
+    const transaction = db.transaction([currentTable], 'readonly');
+    const store = transaction.objectStore(currentTable);
+
+    store.getAll().onsuccess = function(event) {
+        const orders = event.target.result;
+        if (orders.length === 0) return alert('Заказ пуст');
+
+        // Формируем текст чека
+        const checkData = generateCheckText(orders);
+
+        // Рисуем чек на канвасе
+        drawCheckOnCanvas(checkData);
+    };
+}
+
+// Генерация текста чека
+function generateCheckText(orders) {
+    const now = new Date();
+    const formattedDate = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')} ${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+
+    let checkText = '';
+    checkText += 'ШАРЕДА\n\n';
+    checkText += `Стол: ${currentTable.replace('table', '')}\n`;
+    checkText += `Время: ${formattedDate}\n\n`;
+
+    orders.forEach(order => {
+        checkText += `${order.name.padEnd(30)}. ${order.quantity}x ${order.pricePerItem} ₽ = ${roundPrice(order.pricePerItem * order.quantity)} ₽\n`;
+    });
+
+    const total = orders.reduce((sum, o) => sum + roundPrice(o.pricePerItem * o.quantity), 0);
+    checkText += `\nИТОГО: ${total.toLocaleString()} ₽\n`;
+
+    return checkText;
+}
+
+// Рисование чека на канвасе
+function drawCheckOnCanvas(checkText) {
+    // Создаем скрытый канвас
+    const canvas = document.createElement('canvas');
+    canvas.width = 300;
+    canvas.height = 500;
+    const ctx = canvas.getContext('2d');
+
+    // Фон
+    ctx.fillStyle = '#fdfdfd';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Рамка
+    ctx.strokeStyle = '#ccc';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+
+    // Название заведения
+    ctx.font = 'bold 30px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#4caf50';
+    ctx.fillText('ШАРЕДА', canvas.width / 2, 50);
+
+    // Данные чека
+    ctx.font = '14px Arial';
+    ctx.textAlign = 'start';
+    ctx.fillStyle = '#333';
+    ctx.fillText(checkText, 20, 100);
+
+    // Линия внизу
+    ctx.beginPath();
+    ctx.moveTo(20, canvas.height - 50);
+    ctx.lineTo(canvas.width - 20, canvas.height - 50);
+    ctx.strokeStyle = '#ccc';
+    ctx.stroke();
+
+    // Преобразуем в изображение
+    const imageURL = canvas.toDataURL('image/png');
+
+    // Создаем элемент изображения
+    const img = document.createElement('img');
+    img.src = imageURL;
+    img.alt = 'Чек';
+    img.style.maxWidth = '100%';
+    img.style.border = '1px solid #ccc';
+    img.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+
+    // Добавляем чек на страницу
+    const checkContainer = document.createElement('div');
+    checkContainer.className = 'check-container';
+    checkContainer.innerHTML = `
+        <h3>Электронный чек</h3>
+        <p>Распечатайте или сохраните чек.</p>
+    `;
+    checkContainer.appendChild(img);
+
+    // Добавляем контейнер с чеком в интерфейс
+    const contentArea = document.getElementById('content-area');
+    contentArea.insertBefore(checkContainer, contentArea.firstChild);
 }
