@@ -819,20 +819,17 @@ function drawCheckOnCanvas(checkText) {
     ctx.lineWidth = 1;
     ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
 
-    // Логотип заведения (можно заменить на реальный логотип)
-    ctx.drawImage(document.createElement('img').src = 'logo.png', 10, 10, 80, 80);
-
-    // Название заведения
-    ctx.font = 'bold 24px Arial';
+    // Логотип заведения (убираем логотип, оставляем только текст)
+    ctx.font = 'bold 30px Arial';
     ctx.textAlign = 'center';
     ctx.fillStyle = '#333'; // Темно-серый цвет
-    ctx.fillText('ШАРЕДА', canvas.width / 2, 110);
+    ctx.fillText('ШАРЕДА', canvas.width / 2, 50);
 
     // Данные чека
     ctx.font = '14px Arial';
     ctx.textAlign = 'start';
     ctx.fillStyle = '#333'; // Темно-серый цвет
-    ctx.fillText(checkText, 20, 150);
+    ctx.fillText(checkText, 20, 100);
 
     // Линия внизу
     ctx.beginPath();
