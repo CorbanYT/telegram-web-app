@@ -20,7 +20,7 @@ const PRODUCT_CATALOG = {
                   { name: "Хадыжеское", price: 220},
                   { name: "Бад", price: 220},
                   { name: "Майкопское", price: 220},
-                  { name: "Розлив", price: 170}
+                  { name: "Розлив", price: 340}
                 ],
                 Коньяк: {
                   Кизляр: [
