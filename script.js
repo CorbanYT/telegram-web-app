@@ -164,17 +164,17 @@ const PRODUCT_CATALOG = {
         
         },
         Мангал: [
-          { name: "Шашлык свинной", price: },
-          { name: "Шашлык куриный", price: },
-          { name:priceprice: },
-          { name: "", price: },
-          { name: "", price: },
-          { name: "", price: },
-          { name: "", price: },
-          { name: "", price: },
-          { name: "", price: },
-          { name: "", price: },
-          { name: "", price: }
+          { name: "Шашлык свинной", price: 1800},
+          { name: "Шашлык куриный", price: 1500},
+          { name: "Люля-кебаб", price: 1400},
+          { name: "Скумбрия", price: 1600},
+          { name: "Картофель", price: 500},
+          { name: "Грибы", price: 900},
+          { name: "Помидоры", price: 700},
+          { name: "Баклажан", price: 700},
+          { name: "Сладкий перец", price: 700},
+          { name: "Соус красный мангал", price: 200},
+          { name: "Соус белый мангал", price: 200}
         ],
         Тара: [
           { name: "Контейнер 1блюдо", price: 40 },
