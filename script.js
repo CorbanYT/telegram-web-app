@@ -63,7 +63,7 @@ const PRODUCT_CATALOG = {
                   { name: "Вермут Мартини Фиерро", price: 2600},
                 ],
                 Вино: [
-                  { name: "Тсунандали", price: 1500},
+                  { name: "Цинандали", price: 1500},
                   { name: "Кхванчкара", price: 3000},
                   { name: "Киндзмараули красное полусладкое", price:  2400},
                   { name: "Саперави красное сухое", price: 1500},
@@ -79,7 +79,7 @@ const PRODUCT_CATALOG = {
               { name: "Пепси жб", price: 150},
               { name: "Фанта жб", price: 150},
               { name: "Спрайт жб", price: 150},
-              { name: "Вода 0,5", price: 110},
+              { name: "Вода 0,5", price: 100},
               { name: "Амерекано", price: 180},
               { name: "Капучино", price: 200},
               { name: "Латте", price: 200},

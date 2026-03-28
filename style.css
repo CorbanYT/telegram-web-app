@@ -22,7 +22,6 @@ body {
 }
 
 .search-results {
-    position: absolute;
     top: 100%;
     left: 0;
     right: 0;
@@ -364,7 +363,7 @@ button, input[type="number"], .modal-button {
     }
 
     .left-panel, .right-panel {
-        padding: 1.5rem; /* Увеличим внутренние отступы */
+        padding: 1rem; /* Увеличим внутренние отступы */
     }
 
     .product-list {
