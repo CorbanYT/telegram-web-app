@@ -79,7 +79,7 @@ const PRODUCT_CATALOG = {
               { name: "Пепси жб", price: 150},
               { name: "Фанта жб", price: 150},
               { name: "Спрайт жб", price: 150},
-              { name: "Вода 0,5", price: 100},
+              { name: "Вода 0,5", price: 110},
               { name: "Амерекано", price: 180},
               { name: "Капучино", price: 200},
               { name: "Латте", price: 200},
